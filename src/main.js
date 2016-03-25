@@ -12,25 +12,70 @@ function initializeCodeEditor() {
 	});
 }
 
-function initializeApp() {
-	const $divider = $('#divider-chars');
-	const $dataLines = $('#data-lines');
-	const $tpl = $('#template-in');
-	function myRender() {
-		var lines = lineSplit( $dataLines.val(), $divider.val() );
-		var templateStr = $tpl.val();
-		
-		var s = lines.reduce( (s, line) => {
+function renderHTML( lineText, templateStr, separator ) {
+	var lines = lineSplit( lineText, separator );
+	return lines.reduce( (s, line) => {
 			return s + renderString(templateStr, line)
 		}, '');
-		$('#scrapResult').html(s);
+}
+
+class MyStorage {
+	constructor( storeObj, $dataLines, $tpl, $divider ) {
+		this.storageMap = new Map();
+		this.storageMap.set( 'lineText', $dataLines );
+		this.storageMap.set( 'template', $tpl );
+		this.storageMap.set( 'separator', $divider );
+		this.storeObj = storeObj;
 	}
-	$divider.change( myRender );
-	$dataLines.on( 'change keyup', myRender);
+
+	saveToStorage() {
+		this.storageMap.forEach( (element, index) => {
+			this.storeObj.setItem( index, element.val() );
+		} );
+	}
+
+	loadFromStorage() {
+		this.storageMap.forEach( (element, index) => {
+			const value = this.storeObj.getItem( index );
+			if ( value ) {
+				element.val( value );
+			}
+		} );	
+	}
+
+	getValues() {
+		return [ 
+			this.storeObj.getItem( 'lineText' ),
+			this.storeObj.getItem( 'template' ),
+			this.storeObj.getItem( 'separator' )
+		];
+	}
+}
+
+
+function initializeApp() {
+	let $divider = $('#divider-chars');
+	let $dataLines = $('#data-lines');
+	let $tpl = $('#template-in');
+	let store = new MyStorage( window.localStorage, $dataLines, $tpl, $divider );
+	
+
+	function onUpdate() {
+		store.saveToStorage();
+		
+		$('#scrapResult').html( renderHTML.apply(this, store.getValues() ) );
+	}
+
+	store.loadFromStorage();
+	onUpdate();
+
+	// Event handling
+	$divider.change( onUpdate );
+	$dataLines.on( 'change keyup', onUpdate);
 	let codeEditor = initializeCodeEditor();
 	codeEditor.on( 'change', (cm) => {
 		$tpl.val( cm.getValue());
-		myRender();
+		onUpdate();
 	})
 
 }
