@@ -3,15 +3,16 @@ import {renderString} from 'nunjucks';
 import $ from 'jquery';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/monokai.css';
+import 'codemirror/theme/eclipse.css';
 
 // "main" style sheet
 import '../web/css/scraps.css';
 
 function initializeCodeEditor() {
-	return CodeMirror.fromTextArea($("#template-in")[0], {
-		mode: "jinja2"
-	});
+	return CodeMirror.fromTextArea( $('#template-in' )[0], {
+		mode: 'jinja2',
+		theme: 'eclipse'
+	} );
 }
 
 function renderHTML( lineText, templateStr, separator ) {
@@ -53,7 +54,6 @@ class MyStorage {
 		];
 	}
 }
-
 
 function initializeApp() {
 	let $divider = $('#divider-chars');
