@@ -1,6 +1,12 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const PATHS = {
+  src: path.join(__dirname, 'src'),
+  build: path.join(__dirname, 'web')
+};
+
 
 module.exports = {
   entry: [
@@ -9,7 +15,7 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080'
   ],
   output: {
-      path: path.resolve(__dirname, "web/js"),
+      path: PATHS.build,
       publicPath: '/',
       filename: 'main.js'
   },
