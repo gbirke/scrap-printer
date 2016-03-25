@@ -1,0 +1,60 @@
+.scrap-result {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	border-top: dotted 1px gray;
+	padding-top: 1.5rem;
+}
+
+.scrap-result * {
+	-moz-box-sizing: border-box; 
+  	box-sizing: border-box; 
+}
+
+/* Single scraps */
+.scrap {
+	padding: 0.5rem;
+	margin: 0 .5rem 0.5rem 0;
+}
+
+.scrap.border {
+	border:solid 1px gray;
+}
+
+/* Different formats */
+
+.scrap.format-5by1cm {
+	width: 5cm;
+	min-height: 1cm;
+}
+
+.scrap.format-5by2cm {
+	width: 5cm;
+	min-height: 1cm;
+}
+
+/* bank card, etc */
+.scrap.format-id-1 {
+	width: 85.60mm;
+	min-height: 53.98mm;
+}
+
+/* DIN A8 */
+.scrap.format-a8 {
+	width: 74mm;
+	min-height: 52mm;
+}
+
+/* End formats */
+
+/* Print styles */
+@media print {
+	.no-print {
+		display: none;
+	}
+
+	.scrap-result {
+		border:none;
+		padding: 0;
+	}
+}

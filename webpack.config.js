@@ -32,7 +32,7 @@ module.exports = {
       // Extract css files
       {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+          loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap")
       },
     ]
   },

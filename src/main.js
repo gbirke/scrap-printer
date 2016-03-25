@@ -5,6 +5,8 @@ import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 
+// "main" style sheet
+import '../web/css/scraps.css';
 
 function initializeCodeEditor() {
 	return CodeMirror.fromTextArea($("#template-in")[0], {

@@ -45,13 +45,14 @@
         </div>
         <div class="one-half column" style="margin-top: 25%">
           <label for="template-in">Template</label>
-          <textarea name="template_in" id="template-in" style="height:25rem;width:95%" ><div class="scrap">{{ $0 }}</div></textarea>
-          <p>use the placeholder <code>{{ $0 }}</code> for the whole line. Use placeholders like <code>{{ $1 }}</code>, <code>{{ $2 }}</code>, <code>{{ $3 }}</code>, for columns.
+          <textarea name="template_in" id="template-in" style="height:25rem;width:95%" ><div class="scrap format-5by1cm border">{{ $0 }}</div></textarea>
+          <p>Use the placeholder <code>{{ $0 }}</code> for the whole line.</p>
+          <p>Use placeholders like <code>{{ $1 }}</code>, <code>{{ $2 }}</code>, <code>{{ $3 }}</code>, for columns.
         </div>
       </form>
     </div>
     <div class="row">
-      <div class="twelve columns" id="scrapResult">Test</div>
+      <div class="twelve columns scrap-result border s5by1" id="scrapResult"></div>
     </div>
   </div>
 
