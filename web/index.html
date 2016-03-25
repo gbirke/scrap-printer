@@ -35,15 +35,21 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row no-print">
+      <div class="twelve columns">
+        <h2>Scrap Printer</h2>
+        <p>Generate small scraps of paper for passwords, name tags, raffle numbers, etc.</p>
+      </div>
+    </div>
+    <div class="row no-print">
       <form>
-        <div class="one-half column" style="margin-top: 25%">
-            <label for="data-lines">Your Input</label>
+        <div class="one-half column">
+            <label for="data-lines">Input Data</label>
             <textarea name="dataLines" id="data-lines" rows="15" style="height:25rem;width:95%" ></textarea>
             <label for="divider-chars">Divider</label>
             <input size="3" id="divider-chars" name="dividerChars" value=";">
             <p>Each line will be passed on to the template. Line content is split into columns at the divider chars</p>
         </div>
-        <div class="one-half column" style="margin-top: 25%">
+        <div class="one-half column">
           <label for="template-in">Template</label>
           <textarea name="template_in" id="template-in" style="height:25rem;width:95%" ><div class="scrap format-5by1cm border">{{ $0 }}</div></textarea>
           <p>Use the placeholder <code>{{ $0 }}</code> for the whole line.</p>
