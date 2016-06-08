@@ -1,12 +1,15 @@
 import lineSplit from './lineSplit';
-import {renderString} from 'nunjucks';
+import {Environment, WebLoader} from 'nunjucks';
 import $ from 'jquery';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/eclipse.css';
+import passwordFormat from './passwordFormat';
 
 // "main" style sheet
 import '../web/css/scraps.css';
+
+var renderString = null;
 
 function initializeCodeEditor() {
 	return CodeMirror.fromTextArea( $('#template-in' )[0], {
@@ -15,12 +18,20 @@ function initializeCodeEditor() {
 	} );
 }
 
-function renderHTML( lineText, templateStr, separator ) {
-	var lines = lineSplit( lineText, separator );
-	return lines.reduce( (s, line) => {
-			return s + renderString(templateStr, line)
-		}, '');
+class MyRenderer {
+	constructor( templateEnvironment ) {
+		this.templateEnvironment = templateEnvironment;
+	}
+
+	renderHTML( lineText, templateStr, separator ) {
+		var lines = lineSplit( lineText, separator );
+		return lines.reduce( (s, line) => {
+				return s + this.templateEnvironment.renderString(templateStr, line)
+			}, '');
+	}
 }
+
+
 
 class MyStorage {
 	constructor( storeObj, $dataLines, $tpl, $divider ) {
@@ -61,11 +72,16 @@ function initializeApp() {
 	let $tpl = $('#template-in');
 	let store = new MyStorage( window.localStorage, $dataLines, $tpl, $divider );
 	
+	let env = new Environment(new WebLoader('/views'));
+
+	env.addFilter('formatAsPassword', passwordFormat, false);
+
+	let renderer = new MyRenderer( env );
 
 	function onUpdate() {
 		store.saveToStorage();
 		
-		$('#scrapResult').html( renderHTML.apply(this, store.getValues() ) );
+		$('#scrapResult').html( renderer.renderHTML.apply(renderer, store.getValues() ) );
 	}
 
 	store.loadFromStorage();
