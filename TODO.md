@@ -1,3 +1,6 @@
+# Next steps
+Add README
+
 # Known Issues
 * Fix Codemirror. The webpack-included CodeMirror edit field ist not styled properly. Find out why and fix it. Or just include the CSS from a CDN or something.
 * Printing on Chrome and Safari is not quite right, due to [this bug][chromebug]. Since that bug is already 3 years old at the time of writing this, it probably won't get fixed any time soon. Possible solutions: 
